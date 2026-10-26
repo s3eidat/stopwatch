@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' data: blob:; connect-src 'self' data: blob:; worker-src 'self' blob:; manifest-src 'self'; form-action 'none'; base-uri 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Stopwatch — Free Online Stopwatch with Laps &amp; Countdown Timer | S3eidat Tools</title>
+<meta name="description" content="A precise online stopwatch with laps (best and worst highlighted, CSV export) and a countdown timer with presets and an alarm. Big fullscreen digits, keyboard shortcuts. Free and private.">
+<meta property="og:title" content="Stopwatch — laps and countdown timer">
+<meta property="og:description" content="Stopwatch with laps and a countdown timer with alarm. Runs 100% in your browser.">
+<meta property="og:image" content="screenshot.png">
+<link rel="icon" href="kit/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="kit/kit.css">
+<link rel="stylesheet" href="app.css">
+<script src="kit/kit.js"></script>
+</head>
+<body data-tool="stopwatch">
+<main class="s3-main">
+  <section class="s3-hero">
+    <h1>Stopwatch &amp; Timer</h1>
+    <p>A precise stopwatch with laps, and a countdown timer with an alarm. Go fullscreen for big digits you can read across the room.</p>
+  </section>
+
+  <div class="grid-2 sw-grid">
+    <section class="card">
+      <div class="row between">
+        <div class="seg" id="tab" role="group" aria-label="Mode">
+          <button aria-pressed="true" data-v="sw">Stopwatch</button>
+          <button aria-pressed="false" data-v="tm">Timer</button>
+        </div>
+        <button class="btn ghost small" id="fs" title="Fullscreen (F)">⛶ Fullscreen</button>
+      </div>
+
+      <div class="face" id="face">
+        <div class="digits" id="digits" role="timer">00:00<small>.00</small></div>
+        <div class="faint face-sub" id="sub">&nbsp;</div>
+        <div class="bar" id="bar" hidden><i id="barFill"></i></div>
+        <div class="row ctl" id="swCtl">
+          <button class="btn big" id="lap" disabled>Lap</button>
+          <button class="btn primary big" id="swGo">Start</button>
+          <button class="btn big" id="swReset">Reset</button>
+        </div>
+        <div class="row ctl" id="tmCtl" hidden>
+          <button class="btn primary big" id="tmGo">Start</button>
+          <button class="btn big" id="tmReset">Reset</button>
+          <button class="btn big danger" id="silence" hidden>Stop alarm</button>
+        </div>
+      </div>
+
+      <div id="tmSet" class="mt" hidden>
+        <div class="row presets" id="presets">
+          <button class="btn small" data-s="60">1 min</button>
+          <button class="btn small" data-s="180">3 min</button>
+          <button class="btn small" data-s="300">5 min</button>
+          <button class="btn small" data-s="600">10 min</button>
+          <button class="btn small" data-s="900">15 min</button>
+          <button class="btn small" data-s="1500">25 min</button>
+          <button class="btn small" data-s="3600">1 hour</button>
+        </div>
+        <div class="grid-3 mt">
+          <label class="field">Hours<input class="input" type="number" id="th" min="0" max="99" value="0"></label>
+          <label class="field">Minutes<input class="input" type="number" id="tmn" min="0" max="59" value="5"></label>
+          <label class="field">Seconds<input class="input" type="number" id="ts" min="0" max="59" value="0"></label>
+        </div>
+        <div class="row mt">
+          <label class="check"><input type="checkbox" id="sound" checked> Alarm sound</label>
+        </div>
+      </div>
+      <p class="faint center mt"><kbd>Space</kbd> start / stop &nbsp; <kbd>L</kbd> lap &nbsp; <kbd>R</kbd> reset &nbsp; <kbd>F</kbd> fullscreen</p>
+    </section>
+
+    <section class="card" id="lapsCard">
+      <div class="row between">
+        <h2>Laps <small id="lapCount"></small></h2>
+        <div class="row">
+          <button class="btn small" id="copyCsv"><svg class="i"><use href="#i-copy"/></svg>Copy</button>
+          <button class="btn small" id="saveCsv"><svg class="i"><use href="#i-download"/></svg>CSV</button>
+        </div>
+      </div>
+      <div class="tbl-wrap mt" id="lapWrap" hidden>
+        <table class="tbl"><thead><tr><th>Lap</th><th>Lap time</th><th>Total</th></tr></thead><tbody id="laps"></tbody></table>
+      </div>
+      <div class="empty" id="noLaps"><b>No laps yet</b>Start the stopwatch and press <kbd>L</kbd> or the Lap button.</div>
+      <div class="stats mt" id="lapStats"></div>
+    </section>
+  </div>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
